@@ -69,6 +69,8 @@ public class JobData {
      * @return List of all jobs matching the criteria
      */
     public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
+//        System.out.println("Hello! columnAndValue");
+//        System.out.println(value);
 
         // load data, if not already loaded
         loadData();
@@ -76,17 +78,16 @@ public class JobData {
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
-
+            // System.out.println(row.get(column));
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toUpperCase().contains(value.toUpperCase())) {
                 jobs.add(row);
             }
         }
 
         return jobs;
     }
-
     /**
      * Search all columns for the given term
      *
@@ -94,12 +95,30 @@ public class JobData {
      * @return      List of all jobs with at least one field containing the value
      */
     public static ArrayList<HashMap<String, String>> findByValue(String value) {
+//        System.out.println("hello! findByValue");
+//        System.out.println(value);
 
         // load data, if not already loaded
         loadData();
 
-        // TODO - implement this method
-        return null;
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> row : allJobs) {
+            //System.out.println(row.keySet());
+
+            for(String key : row.keySet()){
+//                System.out.println(row.keySet());
+                String job = row.get(key);
+
+                if(job.toUpperCase().contains(value.toUpperCase())) {
+                    jobs.add(row);
+
+                }
+                //System.out.println(entry.getValue());
+            }
+
+        }
+        return jobs;
     }
 
     /**
